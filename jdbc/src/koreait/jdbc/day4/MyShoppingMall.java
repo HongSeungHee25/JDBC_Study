@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 public class MyShoppingMall {
 
+	
 	public static void main(String[] args) {
 				Scanner sc = new Scanner(System.in);
 				System.out.println("★☆★☆★☆★☆★☆ 승희 쇼핑몰에 오신걸 환영합니다.★☆★☆★☆★☆★☆");
