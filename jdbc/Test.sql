@@ -63,3 +63,42 @@ and b.customid = 'twice'
 order by buy_date desc;
 
 select * from mypage_buy where customid = 'twice';
+
+select * from member_tbl_02;
+select * from money_tbl_02;
+
+select b.custno, custname, grade, amount * price total 
+from money_tbl_02 b join member_tbl_02 a
+on a.custno = b.custno
+and b.custno;
+
+SELECT b.custno, a.custname, a.grade, SUM(b.amount * b.price) AS total
+FROM money_tbl_02 b
+JOIN member_tbl_02 a ON a.custno = b.custno
+WHERE b.custno
+GROUP BY b.custno, a.custname, a.grade;
+
+create or replace view mypage_buy as 
+SELECT b.custno, a.custname, a.grade, SUM(b.amount * b.price) AS total
+FROM money_tbl_02 b
+JOIN member_tbl_02 a ON a.custno = b.custno
+GROUP BY b.custno, a.custname, a.grade;
+
+
+SELECT * FROM MEMBER_TBL_02 mt ;
+
+SELECT a.custno 회원번호, a.custname 회원성명,
+CASE 
+   WHEN grade = 'A' THEN 'VIP'
+   WHEN grade = 'B' THEN '일반'
+   WHEN grade = 'C' THEN '직원'
+END AS 고객등급,
+b.sales 매출
+FROM MEMBER_TBL_02 a
+JOIN 
+(SELECT CUSTNO , sum(price) sales FROM MONEY_TBL_02 mt 
+GROUP BY CUSTNO) b 
+ON a.custno = b.custno
+ORDER BY sales DESC;
+
+
