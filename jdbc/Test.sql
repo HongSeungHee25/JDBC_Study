@@ -101,4 +101,19 @@ GROUP BY CUSTNO) b
 ON a.custno = b.custno
 ORDER BY sales DESC;
 
+SELECT a.custno AS "회원번호", a.custname AS "회원성명",
+CASE 
+   WHEN a.grade = 'A' THEN 'VIP'
+   WHEN a.grade = 'B' THEN '일반'
+   WHEN a.grade = 'C' THEN '직원'
+END AS "고객등급",
+b.sales AS "매출"
+FROM MEMBER_TBL_02 a
+JOIN 
+(SELECT CUSTNO , sum(price) AS sales FROM MONEY_TBL_02 mt 
+GROUP BY CUSTNO) b 
+ON a.custno = b.custno
+WHERE a.custno = 100001;
+
+
 

@@ -16,6 +16,13 @@ public class MoneyDTO {
    private String custname;
    private String pcode;
    private int price;
+   
+   
+   @Override
+	public String toString() {
+		return String.format("▶ 회원번호 : %-10d \t ┃ \t회원이름 : %-10s \t ┃ \t고객등급 : %-10s \t ┃ \t매출 : %-5d", 
+				custno,custname,pcode,price)+" ◀";
+	}
 
 }
 	

@@ -14,7 +14,7 @@ public class MoneyDAO {
 	//회원 매출조회
 	//회원번호, 회원이름, 고객등급, 매출
 	
-	//1) 회원번호 입력받아서 회원번호에 맞는 매출 조회하기
+	//1) 회원번호 입력받아서 회원번호에 맞는 매출 조회하기(가격 기준)
 	public int history(int no)throws SQLException{
 		
 		Connection connection = OracleUtility.getConnection();
@@ -41,6 +41,7 @@ public class MoneyDAO {
 		return count;
 	}//history end
 	
+	//2) 고객별 가격 기준 총 매출액 조회하기 
 	public int historyAll() throws SQLException{
 		Connection connection = OracleUtility.getConnection();
 		
@@ -63,7 +64,9 @@ public class MoneyDAO {
 		
 	}//historyAll end
 	
-	 public static List<MoneyDTO> getSalesByAmountDesc(Connection conn) throws SQLException {
+	//3) 고객별 단가 기준 총 매출액 조회하기 
+	 public static List<MoneyDTO> getSalesByAmountDesc() throws SQLException {
+		 Connection connection = OracleUtility.getConnection();
 	        List<MoneyDTO> salesList = new ArrayList<>();
 
 	        String sql = "SELECT a.custno 회원번호, a.custname 회원성명,\r\n"
@@ -79,13 +82,13 @@ public class MoneyDAO {
 	              + "GROUP BY CUSTNO) b \r\n"
 	              + "ON a.custno = b.custno\r\n"
 	              + "ORDER BY sales DESC";
-	        try (PreparedStatement ps = conn.prepareStatement(sql);
+	        try (PreparedStatement ps = connection.prepareStatement(sql);
 	             ResultSet rs = ps.executeQuery()) {
 	            while (rs.next()) {
-	                int custno = rs.getInt("custno");
-	                String custname = rs.getString("custname");
-	                String pcode = rs.getString("pcode");
-	                int price = rs.getInt("price");
+	                int custno = rs.getInt(1);
+	                String custname = rs.getString(2);
+	                String pcode = rs.getString(3);
+	                int price = rs.getInt(4);
 
 	                MoneyDTO money = MoneyDTO.builder()
 	                        .custno(custno)
@@ -94,15 +97,47 @@ public class MoneyDAO {
 	                        .price(price)
 	                        .build();
 
-	                salesList.add(돈);
+	                salesList.add(money);
 	            }
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }
-
+	        
 	        return salesList;
-	    }
-	}
+	    }//getSalesByAmountDesc end
+	 // 4) 회원번호 입력받아서 회원번호에 맞는 단가기준 총 매출액 조회하기
+	 public List<MoneyDTO> getSalesByAmountDescOne(int custno) throws SQLException {
+		 Connection connection = OracleUtility.getConnection();
+		 List<MoneyDTO> list = new ArrayList<>();
+	        String sql = "SELECT a.custno AS \"회원번호\", a.custname AS \"회원성명\",\r\n"
+	        		+ "CASE \r\n"
+	        		+ "   WHEN a.grade = 'A' THEN 'VIP'\r\n"
+	        		+ "   WHEN a.grade = 'B' THEN '일반'\r\n"
+	        		+ "   WHEN a.grade = 'C' THEN '직원'\r\n"
+	        		+ "END AS \"고객등급\",\r\n"
+	        		+ "b.sales AS \"매출\"\r\n"
+	        		+ "FROM MEMBER_TBL_02 a\r\n"
+	        		+ "JOIN \r\n"
+	        		+ "(SELECT CUSTNO , sum(price) AS sales FROM MONEY_TBL_02 mt \r\n"
+	        		+ "GROUP BY CUSTNO) b \r\n"
+	        		+ "ON a.custno = b.custno\r\n"
+	        		+ "WHERE a.custno = ?";
+	        
+		        PreparedStatement ps = connection.prepareStatement(sql);
+		        		ps.setInt(1, custno);
+		             ResultSet rs = ps.executeQuery();
+		            		 
+		       
+		            while (rs.next()) {
+		            	list.add(new MoneyDTO(rs.getInt("회원번호"), rs.getString("회원성명"), rs.getString("고객등급"), rs.getInt("매출")));
+		            }
+		        
+		        connection.close();
+		        ps.close();
+		        rs.close();
+		        return list;
+	 }
+	 
+	}//MoneyDAO end
 	
 	
-}//MoneyDAO
