@@ -7,11 +7,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.Test;
+
 import koreait.jdbc.day2.OracleUtility;
 
 public class MemberDAO {
 
 	// 회원 등록
+	@Test
     public void addMember(MemberDTO member) throws SQLException {
     	Connection connection = OracleUtility.getConnection();
         String query = "INSERT INTO member_tbl_02 (custno, custname, phone, address, joindate, grade, city) " +
