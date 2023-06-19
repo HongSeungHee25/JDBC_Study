@@ -14,14 +14,14 @@ import lombok.Setter;
 public class MoneyDTO {
    private int custno;
    private String custname;
-   private String pcode;
+   private String grade;
    private int price;
    
    
    @Override
 	public String toString() {
 		return String.format("▶ 회원번호 : %-10d \t ┃ \t회원이름 : %-10s \t ┃ \t고객등급 : %-10s \t ┃ \t매출 : %-5d", 
-				custno,custname,pcode,price)+" ◀";
+				custno,custname,grade,price)+" ◀";
 	}
 
 }

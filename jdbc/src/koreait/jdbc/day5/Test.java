@@ -51,7 +51,7 @@ public class Test {
 			System.out.println("━".repeat(218));
 			for (MoneyDTO moneyDTO : list) {
 				System.out.println(String.format(String.format("▶ 회원번호 : %-10d \t ┃ \t회원이름 : %-10s \t ┃ \t고객등급 : %-10s \t ┃ \t매출 : %-5d", 
-				custno,moneyDTO.getCustname(),moneyDTO.getPcode(),moneyDTO.getPrice())+" ◀"));
+				custno,moneyDTO.getCustname(),moneyDTO.getGrade(),moneyDTO.getPrice())+" ◀"));
 				System.out.println(moneyDTO.getCustname()+"("+custno+") 고객님의 총 매출액입니다.");
 			}
 		} catch (SQLException e) {

@@ -87,13 +87,13 @@ public class MoneyDAO {
 	            while (rs.next()) {
 	                int custno = rs.getInt(1);
 	                String custname = rs.getString(2);
-	                String pcode = rs.getString(3);
+	                String grade = rs.getString(3);
 	                int price = rs.getInt(4);
 
 	                MoneyDTO money = MoneyDTO.builder()
 	                        .custno(custno)
 	                        .custname(custname)
-	                        .pcode(pcode)
+	                        .grade(grade)
 	                        .price(price)
 	                        .build();
 
