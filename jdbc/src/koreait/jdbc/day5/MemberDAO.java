@@ -7,10 +7,21 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import org.junit.jupiter.api.Test;
 
 import koreait.jdbc.day2.OracleUtility;
 
+//DAO 에는 입력과 출력은 포함시키지 않습니다. 오직 어떤 형식의 데이터를 받아서
+//어떤 SQL을 실행하여 , 어떤 값을 리턴할 것인가를 중점을 두고 정의하면 됩니다.
+//DTO 는 데이터를 저장하기 위한 목적의 클래스 , DAO 는 어떤 동작을 할것인지를 정의한 메소드만 있습니다.
 public class MemberDAO {
+	//싱글톤으로 만들어 봅니다.
+	
+	private static MemberDAO dao = new MemberDAO();
+	private MemberDAO() {}
+	public static MemberDAO getMemberDAO() {	//메소드 getInstance외에 내용을 알수 있는 이름으로 정하기 
+		return dao;
+	}
 
 	//회원 등록하기
 	public void insert(MemberDTO dto) {
@@ -89,15 +100,14 @@ public class MemberDAO {
 	//수정하기
 	public int update(MemberDTO member) throws SQLException{
 		Connection connection = OracleUtility.getConnection();
-		
-		String sql = "update member_tbl_02 set custname = ?, phone = ?, address = ?, sysdate, grade = ?, city = ? where custno = ?";
+		//수정 가능한 항목(컬럼)은 모두 set에 포함시키기
+		String sql = "update member_tbl_02 set custname = ?, phone = ?, address = ?, grade = ?, city = ? where custno = ?";
 		
 		PreparedStatement ps = connection.prepareStatement(sql);
 		ps.setString(1, member.getCustname());
 		ps.setString(2, member.getPhone());
 		ps.setString(3, member.getAddress());
-		ps.setString(4, member.getGrade());
-		ps.setString(5, member.getCity());
+		ps.setString(4, member.getCity());
 		ps.setInt(5, member.getCustno());
 		
 		int result = ps.executeUpdate();

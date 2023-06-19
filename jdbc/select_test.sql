@@ -115,5 +115,50 @@ GROUP BY CUSTNO) b
 ON a.custno = b.custno
 WHERE a.custno = 100001;
 
+-- 6월 19일 로그인 구현하기 위한 패스워드 컬럼 추가를 합니다.
+-- 패스워드 컬럼은 해시값 64문자를 저장합니다.
 
+alter table j_custom add password char(64);
 
+-- twice 만 패스워드 값 저장하기
+update j_custom set password = '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4'
+where custom_id = 'twice';
+
+select * from j_custom;
+
+-- A : VIP B : 일반  C : 직원
+-- decode(컬럼명,조건1,값1,조건2,값2,..........,나머지값)
+-- nvl(컬럼명, null일경우 '값')
+
+select custno ,custname, DECODE(grade,'A','VIP','B','일반','C','직원')
+from member_tbl_02 mt;
+
+create sequence join_seq start with 100007;
+
+select * from money_tbl_02;
+
+select custno, sum(price)as sales from money_tbl_02
+group by custno 
+order by custno;
+
+create or replace view money_02
+as
+select custno, sum(price)as sales from money_tbl_02
+group by custno 
+order by custno;
+
+select * from money_02;
+
+select a.custno,a.custname,decode(a.grade,'A','VIP','B','일반','C','직원') as grade,b.sales
+from member_tbl_02 a left join money_02 b
+on a.custno = b.custno
+order by a.custno;
+
+create or replace view total_sales
+as 
+select a.custno,a.custname,decode(a.grade,'A','VIP','B','일반','C','직원') as grade,b.sales
+from member_tbl_02 a left join money_02 b
+on a.custno = b.custno
+order by a.custno;
+
+select * from total_sales;

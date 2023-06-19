@@ -8,7 +8,7 @@ public class Test {
 
 	public static void main(String[] args) {
 
-		MoneyDAO money = new MoneyDAO();
+		MoneyDAO money = MoneyDAO.getMoneyDAO();
 		MemberDTO memberDto = new MemberDTO();
 		MoneyDTO moneyDto = new MoneyDTO();
 		
@@ -21,9 +21,9 @@ public class Test {
 		}
 		System.out.println("━".repeat(218));
 		
-		MemberDAO memberDao = new MemberDAO();
+		MemberDAO dao = MemberDAO.getMemberDAO();
 		try {
-			System.out.println("회원 총 "+memberDao.select()+"명의 정보입니다.");
+			System.out.println("회원 총 "+dao.select()+"명의 정보입니다.");
 			System.out.println("━".repeat(218));
 			
 		} catch (SQLException e) {

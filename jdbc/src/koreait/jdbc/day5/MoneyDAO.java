@@ -7,9 +7,21 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.Test;
+
 import koreait.jdbc.day2.OracleUtility;
 
 public class MoneyDAO {
+	
+	//싱글톤 패턴
+	//객체 생성 - private static
+	private static MoneyDAO dao = new MoneyDAO();
+	//기본생성자
+	private MoneyDAO() {}
+	//객체를 리턴할 메소드 - 다른데서 불러와야되니깐 public static
+	public static MoneyDAO getMoneyDAO() {
+		return dao;
+	}
 
 	//회원 매출조회
 	//회원번호, 회원이름, 고객등급, 매출
@@ -69,19 +81,7 @@ public class MoneyDAO {
 		 Connection connection = OracleUtility.getConnection();
 	        List<MoneyDTO> salesList = new ArrayList<>();
 
-	        String sql = "SELECT a.custno 회원번호, a.custname 회원성명,\r\n"
-	              + "CASE \r\n"
-	              + "   WHEN grade = 'A' THEN 'VIP'\r\n"
-	              + "   WHEN grade = 'B' THEN '일반'\r\n"
-	              + "   WHEN grade = 'C' THEN '직원'\r\n"
-	              + "END AS 고객등급,\r\n"
-	              + "b.sales 매출\r\n"
-	              + "FROM MEMBER_TBL_02 a\r\n"
-	              + "JOIN \r\n"
-	              + "(SELECT CUSTNO , sum(price) sales FROM MONEY_TBL_02 mt \r\n"
-	              + "GROUP BY CUSTNO) b \r\n"
-	              + "ON a.custno = b.custno\r\n"
-	              + "ORDER BY sales DESC";
+	        String sql = "select * from total_sales";
 	        try (PreparedStatement ps = connection.prepareStatement(sql);
 	             ResultSet rs = ps.executeQuery()) {
 	            while (rs.next()) {

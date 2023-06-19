@@ -95,6 +95,35 @@ public class JBuyDAO {	//구매와 관련된 CRUD 실행 SQL. DAO : JCustomerDao
 	   
 		return count;
 	}//history end
+
+	
+	
+	public int insert(JBuyDTO buy) {
+		return 1;
+	}
+
+	public JBuyDTO selectOne(int buy_seq) throws SQLException {
+	
+		Connection connection = OracleUtility.getConnection();
+		String sql = "select * from j_buy where buy_seq = ?";
+		
+		PreparedStatement ps = connection.prepareStatement(sql);
+		ps.setInt(1, buy_seq);
+		
+		ResultSet rs = ps.executeQuery();
+		JBuyDTO dto = null;
+		
+		if(rs.next()) dto = new JBuyDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5));
+		
+		connection.close();
+		ps.close();
+		rs.close();
+		return dto;
+		
+	}
+	
+	
+	
 	
 //	public int totalPay(List<JBuyDTO> list){
 //		Connection connection = OracleUtility.getConnection();
