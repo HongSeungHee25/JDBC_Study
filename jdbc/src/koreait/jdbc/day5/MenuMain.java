@@ -19,7 +19,12 @@ public class MenuMain {
 		
 		//싱글톤 DAO 사용하기
 		MemberDAO dao = MemberDAO.getMemberDAO();
-		dao.insert(null);
+		try {
+			dao.select();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		MoneyDAO money = MoneyDAO.getMoneyDAO();
 		try {

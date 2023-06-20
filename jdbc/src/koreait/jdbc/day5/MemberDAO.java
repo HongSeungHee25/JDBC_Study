@@ -51,7 +51,7 @@ public class MemberDAO {
 	public int select() throws SQLException{
 		Connection connection = OracleUtility.getConnection();
 		
-		String sql = "select * from member_tbl_02";
+		String sql = "select custno,custname,phone,address,joindate,decode(grade,'A','VIP','B','일반','C','직원')as grade from member_tbl_02";
 		PreparedStatement ps = connection.prepareStatement(sql);
 		
 		ResultSet rs = ps.executeQuery();
