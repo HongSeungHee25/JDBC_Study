@@ -51,9 +51,6 @@ on p.pcode = b.pcode
 and b.customid = 'twice'
 order by buy_date desc;
 
--- 2개 테이블 join 하여 행단위로 합계(수량*가격) 수식까지 조회하기
-
-
 -- 자주 사용될 join 결과는 view 로 만들기. view 는 create or replace 로 생성후 에 수정까지 가능.
 create or replace view mypage_buy as 
 select buy_date , p.pcode, pname, qty, price, qty*price total
