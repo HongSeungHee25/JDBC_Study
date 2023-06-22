@@ -7,19 +7,10 @@ public class SingletonClass {
 	//1. 미리 객체를 만들어서 전역변수(필드)로 선언해 둡니다. private static
 	//SingletonClass 객체는 오직 한번만 만듭니다.
 	private static SingletonClass single = new SingletonClass();
-	
-	
-	
 	//2. 생성자는 private 입니다. 외부의 다른 클래스는 new SingletonClass() 실행 못합니다.
-	private SingletonClass() {
-		
-	}
-	
+	private SingletonClass() {}
 	//3. 외부의 다른 클래스에서 객체를 요청할 때 리턴해 주는 메소드
 	public static SingletonClass getInstance() {
 		return single;
 	}
-	
-	
-	
 }
