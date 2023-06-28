@@ -121,6 +121,7 @@ alter table j_custom add password char(64);
 update j_custom set password = '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4'
 where custom_id = 'twice';
 
+
 select * from j_custom;
 
 -- A : VIP B : 일반  C : 직원
