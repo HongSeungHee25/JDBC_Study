@@ -15,19 +15,19 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 public class ToppingPannel {
-	
+	//이 클래스에서 생성하려는 메뉴 패널 객체 필드를 선언하고 객체 생성하여 대입
 	private JPanel panel_Topping = new JPanel();
+	//위 객체의 getter 
 	public JPanel getPanel_Topping() {
 		return panel_Topping;
 	}
-	
+	//접근해야하는 다른 패널 private 으로 선언
 	private JPanel panel_Menu;
 	
+	//다른 패널에서 접근해야 하는 이 토핑 패널의 변수 선언 => 전역변수 선언
 	String[] side = { "치즈추가", "햄추가" };
 	int[] side_cost = { 500, 700 };
-	int selected;
-	
-	
+	int selected;					//6개중 선택한 인덱스 저장 변수
 	int side_total = 0;				//토핑 추가 가격 합계
 	int c_count = 0;				//치즈 추가 갯수
 	int h_count = 0;				//햄 추가 갯수
@@ -35,7 +35,7 @@ public class ToppingPannel {
 	int[] toppingC = new int[6];
 	int[] toppingH = new int[6];
 
-
+	//다른 패널에서 접근해야 하는 토핑 패널의 컴포넌트 선언 => 전역변수 선언
 	JLabel lbltotalT = new JLabel("0원");
 	JLabel lblTitle = new JLabel("토핑 추가 옵션");
 	JSpinner spinner_corn = new JSpinner();
@@ -47,6 +47,7 @@ public class ToppingPannel {
 		return d + "원";
 	}
 	
+	//다른 2개의 패널을 접근하기 위해 인자로 받음. 메뉴 패널의 컴포넌트들을 만들고 만들어진 메뉴 패널 리턴함.
 	public JPanel createPanel(MenuPanel pmenu, CartPanel pcart ) {
 		//다른 패널 객체 인자로 받아 초기화
 		this.panel_Menu = pmenu.getPanel_Menu();

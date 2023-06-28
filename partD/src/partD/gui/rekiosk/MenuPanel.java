@@ -16,25 +16,29 @@ import javax.swing.event.ChangeListener;
 
 public class MenuPanel {
 	
+	//이 클래스에서 생성하려는 메뉴 패널 객체 필드를 선언하고 객체 생성하여 대입
 	private JPanel panel_Menu = new JPanel();
+	//위 객체의 getter 
 	public JPanel getPanel_Menu() {
 		return panel_Menu;
 	}
 	
+	//접근해야하는 다른 패널 private 으로 선언
 	private JPanel panel_Cart;
 	private JPanel panel_Topping;		//접근해야하는 다른 패널
 	
-	//다른 패널에서 접근하는 컴포넌트 또는 변수 선언
+	//다른 패널에서 접근해야 하는 이 메뉴 패널의 변수 선언 => 전역변수 선언
 	private String[] menu = { "치즈피자", "불고기피자", "파인애플피자", "새우피자", "레전드피자", "양고기피자" };
 	private int[] cost = { 8000, 9000, 13000, 15000, 20000, 23000 };
 	int total_price = 0;
+	String topping;
+	String[] btnString = new String[6];
+	
+	//다른 패널에서 접근해야 하는 토핑 메뉴 패널의 컴포넌트 선언 => 전역변수 선언
 	JSpinner[] spinner = new JSpinner[6];
 	JLabel[] lblpazzaName = new JLabel[6];
-	String topping;
 
-	String[] btnString = new String[6];
-
-	// 출력되는 숫자 3개마다 ,로 나뉘어 출력되도록 설정.
+	// 출력되는 숫자 3개마다 ,로 나뉘어 출력되도록 설정.자주 사용할 것이므로 메소드로 정의
 	private String priceLabel(int num) { 
 		DecimalFormat dc = new DecimalFormat("#,###,###,###");
 		String d = dc.format(num);
@@ -60,7 +64,7 @@ public class MenuPanel {
 			
 			/// 메뉴 버튼 - 이미지 설정
 			btnDecide[i] = new JButton(String.valueOf(i));
-			btnDecide[i].setIcon(new ImageIcon("./image/"+(i+1)+".jpg"));
+			btnDecide[i].setIcon(new ImageIcon("./image/image/"+(i+1)+".jpg"));
 			if(i%2==0) x=52; 	else x=253;
 			y= 58+163*(i/2);
 			btnDecide[i].setBounds(x, y, 147, 95);

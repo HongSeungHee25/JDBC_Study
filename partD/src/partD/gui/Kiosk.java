@@ -21,6 +21,10 @@ import javax.swing.ImageIcon;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.JTextArea;
 
+//Kiosk.java 클래스를 KioskTest.java 로 복사하지 말고 직접 한타 한타 코딩하세요.
+//				┗> 메뉴 항목 6개가 만들어질 때 반복되는 코드를 반복문으로 변경해보세요.
+//				┗> btnStringX 문자열 변수도 배열로 변경, 메뉴항목 6개의 컴포넌트도 배열로 변경해서 합니다.
+//				┗> 그 외에 코딩하면서 배열로 바뀌는게 필요하다 판단되면 변경해서 해보세요.
 public class Kiosk {
 
 	private JFrame frame;
@@ -28,14 +32,14 @@ public class Kiosk {
 	int[] cost = { 8000, 9000, 13000, 15000, 20000, 23000 };
 	String[] side = { "치즈추가", "햄추가" };
 	int[] side_cost = { 500, 700 };
-	int side_total = 0;
-	int total_price = 0;
-	int c_count = 0;
-	int h_count = 0;
-	int count1 = 0;
+	int side_total = 0;			//토핑 추가 가격 합계
+	int total_price = 0;		//총 구매금액 합계
+	int c_count = 0;			//치즈 토핑 개수 합계
+	int h_count = 0;			//햄 토핑 개수 합계
+	int count1 = 0;				
 	int count2 = 0;
 
-	String btnString1 = "";
+	String btnString1 = "";		//장바구니 목록에 포함될 문자열
 	String btnString2 = "";
 	String btnString3 = "";
 	String btnString4 = "";
@@ -115,7 +119,7 @@ public class Kiosk {
 		/// 메뉴 버튼 - 이미지 설정
 		JButton btnDecide1 = new JButton("1");
 		btnDecide1.setIcon(new ImageIcon("./image/image/1.jpg"));
-		btnDecide1.setBounds(52, 58, 147, 95);				//레이블 위치 (52, 151, 108, 29);  x=그림, y=그림+93
+		btnDecide1.setBounds(52, 58, 147, 95);				
 		panel_Menu.add(btnDecide1);
 
 		JButton btnDecide2 = new JButton("2"); // \uD53C\uC7902
@@ -146,22 +150,23 @@ public class Kiosk {
 		// 메뉴 가격 표시 레이블 : 가격 정수값에 포맷 적용하는 메소드 priceLabel
 		JLabel lblpc1 = new JLabel(priceLabel(8000));
 		lblpc1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblpc1.setBounds(52, 151, 108, 29);				//(52, 58, 147, 95);	
+		lblpc1.setBounds(52, 151, 108, 29);				//이미지 좌표(52, 58, 147, 95);	
+														//레이블 위치 (52, 151, 108, 29);  x=그림, y=그림+93
 		panel_Menu.add(lblpc1);
 
 		JLabel lblpcl2 = new JLabel(priceLabel(9000));
 		lblpcl2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblpcl2.setBounds(253, 151, 108, 29);			//(253, 58, 147, 95);	
+		lblpcl2.setBounds(253, 151, 108, 29);			//이미지 좌표(253, 58, 147, 95);	
 		panel_Menu.add(lblpcl2);
 
 		JLabel lblpc33 = new JLabel(priceLabel(13000));
 		lblpc33.setHorizontalAlignment(SwingConstants.CENTER);
-		lblpc33.setBounds(52, 315, 108, 29);			//(52, 221, 147, 95);
+		lblpc33.setBounds(52, 315, 108, 29);			//이미지 좌표(52, 221, 147, 95);
 		panel_Menu.add(lblpc33);
 
 		JLabel lblpc4 = new JLabel(priceLabel(15000));
 		lblpc4.setHorizontalAlignment(SwingConstants.CENTER);
-		lblpc4.setBounds(253, 316, 108, 29);			//(253, 221, 147, 95);
+		lblpc4.setBounds(253, 316, 108, 29);			//이미지 좌표(253, 221, 147, 95);
 		panel_Menu.add(lblpc4);
 
 		JLabel lblpc5 = new JLabel(priceLabel(20000));
@@ -412,19 +417,21 @@ public class Kiosk {
 		JSpinner spinner_pot = new JSpinner();
 		spinner_pot.setModel(new SpinnerNumberModel(0,0,5,1));
 		spinner_pot.setBounds(269, 195, 84, 47);
-		spinner_pot.addChangeListener(new ChangeListener() {
+		
+		//ChangeListener 는 스피너의 선택값이 바뀔때 발생하는 이벤트를 처리합니다.
+		spinner_pot.addChangeListener(new ChangeListener() {		
 			@Override
-			public void stateChanged(ChangeEvent e) {
+			public void stateChanged(ChangeEvent e) {				//스피너 값 증가/감소 시 결제 전 화면에서 해당 메뉴가 추가될 수 있도록 설정.
 
 				if (count2 < (int) spinner_pot.getValue()) {
 
-					side_total += side_cost[1];
-					lbltotalT.setText(priceLabel(side_total));
-					lbltotalP.setText(priceLabel(total_price));
+					side_total += side_cost[1];						//개수가 증가해서 가격 더해주기
+					lbltotalT.setText(priceLabel(side_total));		//토핑 패널의 레이블 문자열 설정
+					lbltotalP.setText(priceLabel(total_price));		//카트 패널의 테이블 문자열 설정
 					count2 = (int) spinner_pot.getValue();
 				} else if (count2 > (int) spinner_pot.getValue()) {
 
-					side_total -= side_cost[1];
+					side_total -= side_cost[1];						//개수가 감소해서 가격을 빼주기
 					lbltotalT.setText(priceLabel(side_total));
 					lbltotalP.setText(priceLabel(total_price));
 					count2 = (int) spinner_pot.getValue();
