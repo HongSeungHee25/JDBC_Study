@@ -38,7 +38,7 @@ public class D0JTableListExam extends JFrame{
 			boolean flag;
 			if(find.equals("")) flag = true;
 			else
-				flag = temp.getPname().equals(find);
+				flag = temp.getPname().contains(find);
 			if(flag) {
 				data[0] = temp.getPcode();
 				data[1] = temp.getCategory();
@@ -51,7 +51,7 @@ public class D0JTableListExam extends JFrame{
 		Container ctn = getContentPane();
 		JScrollPane jsp = new JScrollPane(jt);
 		
-		JLabel la1 = new JLabel("검색 내용");		
+		JLabel la1 = new JLabel("검색할 상품");		
 		la1.setBounds(10, 10, 100, 30);
 		
 		JTextField jtf1 = new JTextField();		//텍스트 입력
@@ -80,12 +80,15 @@ public class D0JTableListExam extends JFrame{
 					boolean flag;
 					if(find.equals("")) flag = true;
 					else {
+						//contains 일부 일치하는것만 검색해도 나옴
+						//equals 는 띄어쓰기까지 전부 일치해야함.(특수문자, 문자열 등등 전부 일치해야함)
+						//또는 sql 에서 like 사용
 						if(jc.getSelectedIndex()==0)
-						flag = temp.getPcode().equals(find);
+						flag = temp.getPcode().contains(find);
 						if(jc.getSelectedIndex()==1)
-						flag = temp.getCategory().equals(find);
+						flag = temp.getCategory().contains(find);
 						else
-						flag = temp.getPname().equals(find);
+						flag = temp.getPname().contains(find);
 					}
 					
 					if(flag) {

@@ -38,7 +38,7 @@ public class D3JTableListEx extends JFrame{
 				
 				//list 에 저장된 데이터를 테이블 행으로 추가하기 - 검색기능 관련된 flag 변수는 참고하세요
 				//							┗> 데이터는 배열로 전달해야 합니다.
-				DecimalFormat df = new DecimalFormat("###,###,###");
+				DecimalFormat df = new DecimalFormat("###,###,###");		//정수 세자리마다, 출력하는 패턴
 				for(int i=0;i<list.size();i++) {
 					MoneyDTO temp = list.get(i);
 					boolean flag;
@@ -53,7 +53,7 @@ public class D3JTableListEx extends JFrame{
 						data[0] = String.valueOf(temp.getCustno());			//Word 객체의 영어를 배열로 저장
 						data[1] = temp.getCustname();						//Word 객체의 한글을 배열로 저장
 						data[2] = temp.getGrade();							//Word 객체의 레벨을 배열로 저장
-						data[3] = df.format(temp.getPrice());			//Word 객체의 날짜를 배열로 저장
+						data[3] = df.format(temp.getPrice());				//Word 객체의 날짜를 배열로 저장
 						dm.addRow(data);									//테이블 모델 객체의 배열 추가 	
 					}
 				}
@@ -66,7 +66,7 @@ public class D3JTableListEx extends JFrame{
 				JScrollPane jsp = new JScrollPane(jt);  
 				//JScrollPane 에 테이블을 담아서 테이블에 내용이 많아지면 스트롤을 표시합니다.
 
-				JLabel la1 = new JLabel("검색어");
+				JLabel la1 = new JLabel("검색할 고객");
 				la1.setBounds(10,10,100,30);
 
 				JTextField jtf1 = new JTextField();
@@ -76,7 +76,7 @@ public class D3JTableListEx extends JFrame{
 				JComboBox<String> jc = new JComboBox<>(temp);
 				jc.setBounds(330, 10, 100, 30);
 				
-				JButton btn = new JButton("검색");
+				JButton btn = new JButton("고객 검색");
 				btn.setBounds(440, 10, 100, 30);
 				
 				//ActionListener 설정하는 두번째 다른 형태
