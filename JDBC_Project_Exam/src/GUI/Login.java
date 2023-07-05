@@ -53,6 +53,7 @@ public class Login extends JFrame{
 	            try {
 	            	Login window = new Login();
 	            	Join join = new Join();
+	            	Pay pay = new Pay();
 	               window.setVisible(true);
 	               join.setVisible(true);
 	            } catch (Exception e) {
