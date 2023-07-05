@@ -1,6 +1,7 @@
 package DAO;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -32,7 +33,7 @@ public class ManagerDAO {
 			while(rs.next()) {
 				int payment_id = rs.getInt(1);
 				String name = rs.getString(2);
-				String payment_day = rs.getString(3);
+				Date payment_day = rs.getDate(3);
 				int money = rs.getInt(4);
 				String payment_method = rs.getString(5);
 				String car_no = rs.getString(6);

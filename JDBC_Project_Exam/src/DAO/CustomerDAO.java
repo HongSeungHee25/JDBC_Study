@@ -42,22 +42,23 @@ public class CustomerDAO {
 	}
 	
 	//회원) 회원가입 DAO - 승희
-	public void join(Customer dto)throws SQLException{
+	public boolean join(Customer dto)throws SQLException{
 		Connection connection = OracleUtility.getConnection();
 		String sql = "insert into customer values(?,?,?,?,?)";
 		
 		PreparedStatement ps = connection.prepareStatement(sql);
 		
-		ps.setString(1, dto.getCustomer_id());
-		ps.setString(2, dto.getPw());
-		ps.setString(3, dto.getName());
+		ps.setString(1, dto.getName());
+		ps.setString(2, dto.getCustomer_id());
+		ps.setString(3, dto.getPw());
 		ps.setString(4, dto.getPhone());
 		ps.setString(5, dto.getLicence());
 		
-		ps.execute();
+		int result = ps.executeUpdate();
 		
 		connection.close();
 		ps.close();
+		return result > 0;
 	}
 		//관리자) 회원 조회 DAO - 병인
 		public List<Customer> selectAll() throws SQLException{

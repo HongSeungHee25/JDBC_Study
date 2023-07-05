@@ -29,7 +29,7 @@ public class PaymentDAO {
 	      ResultSet rs = ps.executeQuery();
 	      List<Payment> list = new ArrayList<>();
 	      while(rs.next()) {
-	    	  list.add(new Payment(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getInt(5), rs.getString(6), rs.getString(7)));
+	    	  list.add(new Payment(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getDate(4), rs.getInt(5), rs.getString(6), rs.getString(7)));
 	      }
 	      return list;
 	}
@@ -43,7 +43,7 @@ public class PaymentDAO {
 	      ResultSet rs = ps.executeQuery();
 	      Payment pm = null;
 	      if(rs.next()) {
-	    	  pm = new Payment(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getInt(5), rs.getString(6), rs.getString(7));
+	    	  pm = new Payment(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getDate(4), rs.getInt(5), rs.getString(6), rs.getString(7));
 	      }
 	      return pm;
 	}
