@@ -98,7 +98,9 @@ public class Main02 {
 		
 		try {
 			//main 쓰레드 다른 쓰레드 모두 종료된 후에 끝내기를 원한다면 ▶ main 쓰레드의 대기
-			th1.join();
+			th1.join();			//main 이 th1 이 종료될때까지 기다림
+			th2.join();			//main 이 th2 이 종료될때까지 기다림
+			//두개의 쓰레드를 기다림 ▶ 항상 main 쓰레드가 마지막에 종료합니다.
 		} catch (InterruptedException e) {}
 		
 		System.out.println("I am Main 〓〓〓〓〓〓〓〓〓〓〓〓〓 언제 실행되는지 확인하세요. 〓〓〓〓〓〓〓〓〓〓");
