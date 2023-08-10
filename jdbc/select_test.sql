@@ -115,6 +115,7 @@ WHERE a.custno = 100001;
 -- 6월 19일 로그인 구현하기 위한 패스워드 컬럼 추가를 합니다.
 -- 패스워드 컬럼은 해시값 64문자를 저장합니다.
 
+alter table j_custom add password varchar2(30);
 alter table j_custom add password char(64);
 
 -- twice 만 패스워드 값 저장하기
@@ -160,3 +161,7 @@ on a.custno = b.custno
 order by a.custno;
 
 select * from total_sales;
+
+SELECT * FROM J_CUSTOM ;
+select custom_id ,name 
+from j_custom where custom_id ='mina012' and password='1111'
